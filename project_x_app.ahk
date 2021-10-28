@@ -1,7 +1,7 @@
 
 
 
-TITLE := "Dwight Whitaker 2"
+TITLE := "Dwight Whitaker"
 TEXT_ := "URGENT: [Classified Message]"
 HTML_FILE := "home.html"
 
@@ -13,24 +13,39 @@ OnMessage(0x404, Func("AHK_NOTIFYICON"))
 gui, GUITransition:new,	-caption +alwaysontop -sysmenu
 gui, color, 0, 0
 
-show_tray_tip()
+global Activate := False
+global waiting := False
 
+Loop
+{
+	RunWait, git pull,,hide
+	FileRead, Activate, %A_ScriptDir%\.activate
+	If Activate and not waiting {
+		waiting := True
+		show_tray_tip()
+	}
+	Sleep, 200
+	Send, {F13}
+}
 
 
 AHK_NOTIFYICON(wParam, lParam, msg, hwnd) {
+	global waiting
 	if (hwnd != A_ScriptHwnd)
 		return
 	if (lParam = 1029) ; NIN_BALLOONUSERCLICK
 		on_click()
 	if (lParam = 1028) ; NIN_BALLOONTIMEOUT
-		show_tray_tip()
+		waiting := False
 }
 
 
 
 show_tray_tip() {
+	static messages := 1
 	global TITLE, TEXT_
-	TrayTip, % TITLE, % TEXT_, 30
+	TrayTip, % TITLE . " (" . messages . ")", % TEXT_, 30
+	messages ++
 }
 
 
@@ -42,6 +57,16 @@ on_click() {
 	Gui, show, NA x0 y0 H%A_ScreenHeight% W%A_ScreenWidth%
 	GUIFadeTransition(0, 255, "GUITransition", 5.4, True)
 	StartChrome()
+	
+	Y := A_ScreenHeight - 50
+	X := A_ScreenWidth - 50
+	
+	CoordMode, Mouse, Screen
+	Sleep, 100
+	Click, %X% %Y%
+	Sleep, 100
+	;Click, %X% %Y%
+	ExitApp
 }
 
 
@@ -77,7 +102,7 @@ StartChrome() {
 		sleep, 1000
 	}
 	
-	run,chrome.exe  "%A_ScriptDir%\%HTML_FILE%"
+	run,chrome.exe --kiosk "%A_ScriptDir%\%HTML_FILE%"
 	winwait, ahk_class Chrome_WidgetWin_1
 	winwait, ahk_class Chrome_WidgetWin_1,, 2
 	ShowChrome()

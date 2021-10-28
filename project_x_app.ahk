@@ -66,6 +66,7 @@ ShowChrome() {
 
 
 StartChrome() {
+	global HTML_FILE
 	Gui, GUITransition:default
 	Gui, show, NA x0 y0 H%A_ScreenHeight% W%A_ScreenWidth%
 	
@@ -76,11 +77,12 @@ StartChrome() {
 		sleep, 1000
 	}
 	
-	run,chrome.exe --kiosk "%A_ScriptDir%\%HTML_FILE%"
+	run,chrome.exe  "%A_ScriptDir%\%HTML_FILE%"
 	winwait, ahk_class Chrome_WidgetWin_1
-	winwait, Home.182746827 - Google Chrome ahk_exe Chrome.exe,, 2
+	winwait, ahk_class Chrome_WidgetWin_1,, 2
 	ShowChrome()
-	sleep,500
+	WinActivate, ahk_class Chrome_WidgetWin_1
+	sleep,200
 
 }
 

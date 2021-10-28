@@ -18,6 +18,7 @@ gui, color, 0, 0
 
 ; variables
 global Activate := False
+global OverrideActivate := False
 global waiting := False
 
 ; main loop
@@ -28,7 +29,7 @@ Loop
 	FileRead, Activate, %A_ScriptDir%\.activate
 	
 	
-	If Activate and not waiting {
+	If (Activate or OverrideActivate) and not waiting {
 		waiting := True
 		show_notification()
 	}
@@ -38,16 +39,17 @@ Loop
 	Send, {F13}
 }
 
-
-
-
-
-show_notification() {
-	static messages := 1
-	global TITLE, TEXT_
-	TrayTip, % TITLE . " (" . messages . ")", % TEXT_, 30
-	messages ++
+; press X to force notifications to appear
+x::
+{
+	OverrideActivate := not OverrideActivate
+	return
 }
+
+
+
+
+
 
 
 ; notification click
@@ -86,7 +88,12 @@ on_missed_notification() {
 
 
 
-
+show_notification() {
+	static messages := 1
+	global TITLE, TEXT_
+	TrayTip, % TITLE . " (" . messages . ")", % TEXT_, 30
+	messages ++
+}
 
 ShowChrome() {
 	Gui, GUITransition:default

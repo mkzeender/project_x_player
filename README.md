@@ -1,4 +1,4 @@
-# project_x_player
+# Project X Video Player
 
 Setup:
 ------

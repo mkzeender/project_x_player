@@ -26,3 +26,11 @@ Customization:
 1. You can replace the video with any .mp4 file, as long as it's called video.mp4.
 2. To change the notification message, edit the project_x_app.ahk file at the top.
 3. Edit the code in project_x_app.ahk, controller.ahk, and home.html as much as you like. Nothing difficult, no compiling necessary!
+
+
+Troubleshooting:
+----------------
+
+Windows is picky about when it's allowed to interrupt you with notifications. Press the Action Center button (right-most button on taskbar) and see if the notifications are there?
+
+If remote control doesn't work, check your github page to see if the .activate file contains a 0 or a 1 (1 for activated, 0 for not activated) to see if it's a controller or receiver problem.

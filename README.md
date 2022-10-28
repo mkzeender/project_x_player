@@ -18,7 +18,7 @@ The server is accessible at http://localhost:5000/
 Press enter in the terminal, or go to http://localhost:5000/admin to activate the notification.
 
 ## Remotely accessing the server
-To use this as a remote control, you will need to do some networking. Ngrok is a great tool, just make an account and follow the instructions on the webpage. The final command should be 
+To use this as a remote control, you will need to do some networking. https://ngrok.com/ is a great tool, just make an account and follow the instructions on the webpage. The final command should be 
 `ngrok http 5000`
 this will give you a public url that can be accessed anywhere in the world. Again, put /admin at the end of the link to control the notification
 

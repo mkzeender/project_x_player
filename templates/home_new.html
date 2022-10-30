@@ -6,11 +6,11 @@
         <!-- <div id="success" class="button">Click me for Success!</div>
         <div id="failure" class="button">Click me for Failure!</div> -->
 
-        <div class="notify"><a href="/video" style="color:white;font-size:23px"></style><span id="notifyType" class=""></span></a></div>
+        <div class="notify"><a href="/video" style="color:white;font-size:28px"></style><span id="notifyType" class=""></span></a></div>
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
-        
+
 
         show_notification = function () {
             $(".notify").toggleClass("active");
@@ -54,6 +54,17 @@
         }
 
         looper()
+    </script>
+    <script>
+        const elem = document.documentElement
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+
     </script>
 </html>
 

@@ -1,4 +1,4 @@
-from concurrent.futures import thread
+
 import json
 from flask import Flask
 import flask
@@ -61,7 +61,7 @@ def control_loop():
 def main():
     threading.Thread(daemon=True, name='Controller', target=control_loop).start()
 
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
 
 if __name__ == '__main__':
     main()
